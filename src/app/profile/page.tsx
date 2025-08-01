@@ -10,7 +10,7 @@ import Link from 'next/link';
 export default function ProfilePage() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [userProfile, setUserProfile] = useState<any>(null);
+  const [userProfile, setUserProfile] = useState<Record<string, unknown> | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);

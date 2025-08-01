@@ -55,7 +55,7 @@ export default function ForgotPasswordPage() {
               Check your email
             </h1>
             <p className="text-slate-600 dark:text-slate-400 mb-4">
-              We've sent a password reset link to
+              We&apos;ve sent a password reset link to
             </p>
             <p className="text-slate-900 dark:text-white font-medium">
               {email}
@@ -80,7 +80,7 @@ export default function ForgotPasswordPage() {
               <div className="flex items-start space-x-3">
                 <div className="w-2 h-2 bg-blue-600 rounded-full mt-2 flex-shrink-0"></div>
                 <p className="text-sm text-slate-600 dark:text-slate-400">
-                  Check your spam folder if you don't see the email
+                  Check your spam folder if you don&apos;t see the email
                 </p>
               </div>
             </div>
@@ -90,7 +90,7 @@ export default function ForgotPasswordPage() {
               onClick={() => setIsSubmitted(false)}
               className="w-full mt-6 flex items-center justify-center px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-xl text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-700 hover:bg-slate-50 dark:hover:bg-slate-600 transition-colors"
             >
-              Didn't receive the email? Resend
+              Didn&apos;t receive the email? Resend
             </button>
           </div>
 
@@ -117,9 +117,9 @@ export default function ForgotPasswordPage() {
           <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
             Forgot password?
           </h1>
-          <p className="text-slate-600 dark:text-slate-400">
-            No worries, we'll send you reset instructions
-          </p>
+                      <p className="text-slate-600 dark:text-slate-400">
+              No worries, we&apos;ll send you reset instructions
+            </p>
         </div>
 
         {/* Forgot Password Form */}

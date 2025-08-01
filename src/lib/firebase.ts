@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail, signOut, User } from 'firebase/auth';
-import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, query, where, orderBy, limit, Timestamp } from 'firebase/firestore';
+import { getFirestore, collection, doc, setDoc, getDoc, getDocs, addDoc, updateDoc, deleteDoc, query, where, orderBy, Timestamp } from 'firebase/firestore';
 
 // Your Firebase configuration
 // Replace these with your actual Firebase project credentials
@@ -27,8 +27,8 @@ export const signUp = async (email: string, password: string) => {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return { user: userCredential.user, error: null };
-  } catch (error: any) {
-    return { user: null, error: error.message };
+  } catch (error: unknown) {
+    return { user: null, error: error instanceof Error ? error instanceof Error ? error.message : "Unknown error" : 'Unknown error' };
   }
 };
 
@@ -36,8 +36,8 @@ export const signIn = async (email: string, password: string) => {
   try {
     const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return { user: userCredential.user, error: null };
-  } catch (error: any) {
-    return { user: null, error: error.message };
+  } catch (error: unknown) {
+    return { user: null, error: error instanceof Error ? error instanceof Error ? error.message : "Unknown error" : 'Unknown error' };
   }
 };
 
@@ -45,8 +45,8 @@ export const resetPassword = async (email: string) => {
   try {
     await sendPasswordResetEmail(auth, email);
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -54,8 +54,8 @@ export const logOut = async () => {
   try {
     await signOut(auth);
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -91,8 +91,8 @@ export const createUserProfile = async (userData: Omit<UserProfile, 'uid' | 'cre
 
     await setDoc(doc(db, 'users', user.uid), profileData);
     return { profile: profileData, error: null };
-  } catch (error: any) {
-    return { profile: null, error: error.message };
+  } catch (error: unknown) {
+    return { profile: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -106,8 +106,8 @@ export const getUserProfile = async (uid: string) => {
     } else {
       return { profile: null, error: 'User profile not found' };
     }
-  } catch (error: any) {
-    return { profile: null, error: error.message };
+  } catch (error: unknown) {
+    return { profile: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -119,8 +119,8 @@ export const updateUserProfile = async (uid: string, updates: Partial<UserProfil
       updatedAt: Timestamp.now(),
     });
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -146,8 +146,8 @@ export const addFactory = async (factoryData: Omit<FactoryData, 'id' | 'createdA
 
     const docRef = await addDoc(collection(db, 'factories'), data);
     return { id: docRef.id, error: null };
-  } catch (error: any) {
-    return { id: null, error: error.message };
+  } catch (error: unknown) {
+    return { id: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -162,8 +162,8 @@ export const getFactories = async () => {
     });
     
     return { factories, error: null };
-  } catch (error: any) {
-    return { factories: [], error: error.message };
+  } catch (error: unknown) {
+    return { factories: [], error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -177,8 +177,8 @@ export const getFactoryById = async (id: string) => {
     } else {
       return { factory: null, error: 'Factory not found' };
     }
-  } catch (error: any) {
-    return { factory: null, error: error.message };
+  } catch (error: unknown) {
+    return { factory: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -190,8 +190,8 @@ export const updateFactory = async (id: string, updates: Partial<FactoryData>) =
       updatedAt: Timestamp.now(),
     });
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -199,8 +199,8 @@ export const deleteFactory = async (id: string) => {
   try {
     await deleteDoc(doc(db, 'factories', id));
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -229,8 +229,8 @@ export const addProductionRecord = async (productionData: Omit<ProductionData, '
 
     const docRef = await addDoc(collection(db, 'production'), data);
     return { id: docRef.id, error: null };
-  } catch (error: any) {
-    return { id: null, error: error.message };
+  } catch (error: unknown) {
+    return { id: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -250,8 +250,8 @@ export const getProductionRecords = async (factoryId?: string) => {
     });
     
     return { records, error: null };
-  } catch (error: any) {
-    return { records: [], error: error.message };
+  } catch (error: unknown) {
+    return { records: [], error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -263,8 +263,8 @@ export const updateProductionRecord = async (id: string, updates: Partial<Produc
       updatedAt: Timestamp.now(),
     });
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -272,8 +272,8 @@ export const deleteProductionRecord = async (id: string) => {
   try {
     await deleteDoc(doc(db, 'production', id));
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -310,8 +310,8 @@ export const createLedger = async (ledgerData: Omit<LedgerData, 'id' | 'createdA
 
     const docRef = await addDoc(collection(db, 'ledgers'), data);
     return { id: docRef.id, error: null };
-  } catch (error: any) {
-    return { id: null, error: error.message };
+  } catch (error: unknown) {
+    return { id: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -332,8 +332,8 @@ export const getLedgers = async (userId: string) => {
     ledgers.sort((a, b) => b.createdAt.toMillis() - a.createdAt.toMillis());
     
     return { ledgers, error: null };
-  } catch (error: any) {
-    return { ledgers: [], error: error.message };
+  } catch (error: unknown) {
+    return { ledgers: [], error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -347,8 +347,8 @@ export const getLedgerById = async (id: string) => {
     } else {
       return { ledger: null, error: 'Ledger not found' };
     }
-  } catch (error: any) {
-    return { ledger: null, error: error.message };
+  } catch (error: unknown) {
+    return { ledger: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -360,8 +360,8 @@ export const updateLedger = async (id: string, updates: Partial<LedgerData>) => 
       updatedAt: Timestamp.now(),
     });
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -369,8 +369,8 @@ export const deleteLedger = async (id: string) => {
   try {
     await deleteDoc(doc(db, 'ledgers', id));
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -384,8 +384,8 @@ export const addTransaction = async (transactionData: Omit<TransactionData, 'id'
 
     const docRef = await addDoc(collection(db, 'transactions'), data);
     return { id: docRef.id, error: null };
-  } catch (error: any) {
-    return { id: null, error: error.message };
+  } catch (error: unknown) {
+    return { id: null, error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -406,8 +406,8 @@ export const getTransactions = async (ledgerId: string) => {
     transactions.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
     
     return { transactions, error: null };
-  } catch (error: any) {
-    return { transactions: [], error: error.message };
+  } catch (error: unknown) {
+    return { transactions: [], error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -419,8 +419,8 @@ export const updateTransaction = async (id: string, updates: Partial<Transaction
       updatedAt: Timestamp.now(),
     });
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 
@@ -428,8 +428,8 @@ export const deleteTransaction = async (id: string) => {
   try {
     await deleteDoc(doc(db, 'transactions', id));
     return { error: null };
-  } catch (error: any) {
-    return { error: error.message };
+  } catch (error: unknown) {
+    return { error: error instanceof Error ? error.message : "Unknown error" };
   }
 };
 

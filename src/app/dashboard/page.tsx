@@ -5,15 +5,15 @@ import { logOut, getUserProfile, addFactory, getFactories, addProductionRecord, 
 import { Timestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { LogOut, User, Settings, Plus, Factory, BarChart3, ChevronDown, UserCircle, Building, FileText, TrendingUp, TrendingDown, Users } from 'lucide-react';
+import { LogOut, Settings, ChevronDown, UserCircle, FileText, TrendingUp, TrendingDown } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [userProfile, setUserProfile] = useState<any>(null);
-  const [factories, setFactories] = useState<any[]>([]);
-  const [productionRecords, setProductionRecords] = useState<any[]>([]);
+  const [userProfile, setUserProfile] = useState<Record<string, unknown> | null>(null);
+  const [factories, setFactories] = useState<Record<string, unknown>[]>([]);
+  const [productionRecords, setProductionRecords] = useState<Record<string, unknown>[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
@@ -248,7 +248,7 @@ export default function DashboardPage() {
                   <span>Debit</span>
                 </div>
                 <div className="flex items-center space-x-1">
-                  <Users className="h-4 w-4 text-blue-500" />
+                  <UserCircle className="h-4 w-4 text-blue-500" />
                   <span>Shared</span>
                 </div>
               </div>

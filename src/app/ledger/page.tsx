@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { createLedger, getLedgers, addTransaction, getTransactions, deleteTransaction, deleteLedger, LedgerData, TransactionData } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Plus, Search, Filter, Download, Calendar, FileText, DollarSign, TrendingUp, TrendingDown, Users, Building, Trash2 } from 'lucide-react';
+import { ArrowLeft, Plus, Search, Filter, Download, FileText, DollarSign, TrendingUp, TrendingDown, Building, Trash2 } from 'lucide-react';
 import Link from 'next/link';
 
 
@@ -35,7 +35,7 @@ export default function LedgerPage() {
     particulars: '',
     debit: 0,
     credit: 0,
-    category: 'Personal' as const
+    category: 'Personal' as 'Personal' | 'Business' | 'Expense' | 'Income'
   });
 
   useEffect(() => {
@@ -717,7 +717,7 @@ export default function LedgerPage() {
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Category</label>
                   <select
                     value={newTransaction.category}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, category: e.target.value as any })}
+                    onChange={(e) => setNewTransaction({ ...newTransaction, category: e.target.value as 'Personal' | 'Business' | 'Expense' | 'Income' })}
                     className="w-full px-3 py-2 border border-slate-300 dark:border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                   >
                     <option value="Personal">Personal</option>
