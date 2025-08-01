@@ -1,7 +1,7 @@
 'use client';
 
 import { useAuth } from '@/contexts/AuthContext';
-import { logOut, getUserProfile, addFactory, getFactories, addProductionRecord, getProductionRecords } from '@/lib/firebase';
+import { logOut, getUserProfile, addFactory, getFactories, addProductionRecord, getProductionRecords, UserProfile, FactoryData, ProductionData } from '@/lib/firebase';
 import { Timestamp } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -11,9 +11,9 @@ import Link from 'next/link';
 export default function DashboardPage() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [userProfile, setUserProfile] = useState<Record<string, unknown> | null>(null);
-  const [factories, setFactories] = useState<Record<string, unknown>[]>([]);
-  const [productionRecords, setProductionRecords] = useState<Record<string, unknown>[]>([]);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const [factories, setFactories] = useState<FactoryData[]>([]);
+  const [productionRecords, setProductionRecords] = useState<ProductionData[]>([]);
   const [isLoadingData, setIsLoadingData] = useState(false);
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
 
@@ -97,7 +97,7 @@ export default function DashboardPage() {
     
     try {
       const productionData = {
-        factoryId: factories[0].id,
+        factoryId: factories[0].id || '',
         productName: `Fashion Item ${productionRecords.length + 1}`,
         quantity: Math.floor(Math.random() * 100) + 50,
         unit: 'pieces',
