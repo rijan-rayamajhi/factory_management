@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { getUserProfile, updateUserProfile, UserProfile } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, User, Mail, Phone, Save, X, CheckCircle } from 'lucide-react';
+import { ArrowLeft, User, Mail, Building, Phone, Save, X, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ProfilePage() {
