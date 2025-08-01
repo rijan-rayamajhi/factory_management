@@ -2,15 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { getUserProfile, updateUserProfile } from '@/lib/firebase';
+import { getUserProfile, updateUserProfile, UserProfile } from '@/lib/firebase';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, User, Mail, Building, Phone, Save, X, CheckCircle } from 'lucide-react';
+import { ArrowLeft, User, Mail, Phone, Save, X, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 
 export default function ProfilePage() {
   const { user, loading } = useAuth();
   const router = useRouter();
-  const [userProfile, setUserProfile] = useState<Record<string, unknown> | null>(null);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
